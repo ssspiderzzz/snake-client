@@ -1,18 +1,16 @@
-const net = require('net');
-
-/**
- * Establishes connection with the game server
- */
-const connect = function() {
-  const conn = net.createConnection({
-    host: '192.168.88.218',
-    port: 50541
-  });
-  // interpret incoming data as text
-  conn.setEncoding('utf8');
-
-  return conn;
-};
+const { connect } = require('./client');
+const stdin = process.stdin;
 
 console.log('Connecting ...');
-connect();
+
+let connection = connect();
+
+//connection.send("Name:BIN");
+
+connection.on('connect', () => {
+  connection.write('Name: BIN');
+  //stdin.on('data', data => {
+  //  connection.write(`${data}`);
+  //});
+});
+
